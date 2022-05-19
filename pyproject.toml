@@ -18,10 +18,12 @@ librosa = "^0.9.1"
 SoundFile = "^0.10.3"
 tensorboard = "^2.8.0"
 h5py = "^3.6.0"
+colorednoise = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
 jupyter = "^1.0.0"
 ipython = "^8.1.1"
+mypy = "^0.950"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -2,7 +2,9 @@ name: speech3.8
 channels:
   - pytorch
   - defaults
+  - conda-forge
 dependencies:
   - python==3.8
   - cpuonly
   - pytorch
+  - hydra-core=1.1.1
