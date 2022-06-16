@@ -1,13 +1,11 @@
 name: speech3.9
 channels:
-  - conda-forge
-  - defaults
   - pytorch
+  - conda-forge
 dependencies:
   - python==3.9
   - cpuonly
-  - pytorch=1.11.0
-  - pip
+  - pytorch>=1.11.0
   - librosa
   - mne-base
   - scipy
@@ -18,14 +16,11 @@ dependencies:
   - tensorboard
   - h5py
   - tqdm
-  - pip:
-    - hydra-core>=1.1.2
-    - SoundFile==0.10.3.post1
+  - hydra-core
   # dev deps
   - jupyter
   - ipython
   - mypy
   - pytest
-  # --------
 variables:
     MEG_DATA: "/home/altukhov/Data/speech/rawdata/derivatives/"
