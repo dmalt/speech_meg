@@ -13,3 +13,5 @@ ica_config: dict = {
 }
 
 audio_ch = "MISC008"
+
+resamp_freq = 500
