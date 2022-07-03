@@ -8,6 +8,7 @@ Note
 ----
 requires mne >= 0.20 for filtering line noise with filter_chpi
 for emptyroom data
+
 """
 import logging
 import os
@@ -23,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 @hydra.main(config_path="../configs/", config_name="02-apply_maxfilter")
 def main(cfg):
-    logger.info("Starting new session")
+    logger.info(f"Starting new session for {__name__}")
     logger.info(f"Current working directory is {os.getcwd()}")
 
     raw = prepare_annotated_raw(
