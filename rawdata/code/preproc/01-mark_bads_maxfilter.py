@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Manually mark bad channels and segments for maxfilter"""
 from __future__ import annotations
 
@@ -8,7 +9,6 @@ from pathlib import Path
 import hydra
 from mne import read_annotations  # type: ignore
 from mne.io import Raw, read_raw_fif  # type: ignore
-from omegaconf import OmegaConf
 from utils import inspect_raw, read_bads, write_bads
 
 logger = logging.getLogger(__name__)
@@ -36,8 +36,6 @@ def annotate_fif(raw_path: PathLike, bads_path: PathLike, annots_path: PathLike)
 @hydra.main(config_path="../configs/", config_name="01-mark_bads_maxfilter")
 def main(cfg):
     logger.info("Starting new session")
-    OmegaConf.resolve(cfg)  # type: ignore
-    logger.debug(OmegaConf.to_yaml(cfg))
     logger.info(f"Current working directory is {getcwd()}")
 
     annotate_fif(cfg.raw_path, cfg.bad_channels_path, cfg.annotations_path)

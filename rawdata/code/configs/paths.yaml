@@ -1,12 +1,12 @@
 bids_root: /home/altukhov/Data/speech_meg/rawdata
-derivatives: ${bids_root}/derivatives
+derivatives_path: ${bids_root}/derivatives
 
-subject: ???
-task: ???
+subject: test
+task: speech
 
 bids_subject: sub-${subject}
 bids_task: task-${task}
 
 raw_path: ${bids_root}/${bids_subject}/meg/${bids_subject}_${bids_task}_meg.fif
-crosstalk: ${bids_root}/${bids_subject}/meg/${bids_subject}_acq-crosstalk_meg.fif
-calibration: ${bids_root}/${bids_subject}/meg/${bids_subject}_acq-calibration_meg.dat
+ct_path: ${bids_root}/${bids_subject}/meg/${bids_subject}_acq-crosstalk_meg.fif
+cal_path: ${bids_root}/${bids_subject}/meg/${bids_subject}_acq-calibration_meg.dat
