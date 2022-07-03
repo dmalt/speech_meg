@@ -1,50 +1,34 @@
 #!/usr/bin/env python
-"""Manually mark bad channels and segments for maxfilter"""
-from mne import read_annotations  # type: ignore
-from mne.io import read_raw_fif  # type: ignore
-from speech import config as cfg  # type: ignore
+"""Manually mark bad segments after maxfilter for ICA"""
+import logging
+from os import getcwd
+
+import hydra
+from utils import (
+    annotate_raw_manually,
+    prepare_annotated_raw,
+    write_annotations,
+    write_bad_channels,
+)
+
+logger = logging.getLogger(__name__)
 
 
-def inspect_fif(fif_path, bads, annotations, is_emptyroom):
-    """Manually mark bad channels and segments in gui signal viewer
-    Filter chpi and line noise from data copy for inspection
-    """
-    raw_check = read_raw_fif(fif_path, preload=True)
-    if bads is not None:
-        raw_check.info["bads"] = bads
-    if annotations is not None:
-        raw_check.set_annotations(annotations)
-    raw_check.plot(block=True, lowpass=100, highpass=0.5, n_channels=100)
-    return raw_check.info["bads"], raw_check.annotations
+@hydra.main(config_path="../configs/", config_name="03-annotate_postmaxfilt")
+def main(cfg):
+    logger.info(f"Starting new session for {__file__}")
+    logger.info(f"Current working directory is {getcwd()}")
 
+    raw = prepare_annotated_raw(
+        cfg.maxfiltered.maxfiltered_path, cfg.bad_channels_path, cfg.annotations_path
+    )
+    bads, annotations = annotate_raw_manually(raw)
+    write_bad_channels(cfg.bad_channels_path, bads)
+    write_annotations(cfg.annotations_path, annotations)
 
-def read_bads(bads_path):
-    with open(bads_path, "r") as f:
-        bads = f.readline().split("\t")
-    if bads == [""]:
-        bads = []
-    return bads
-
-
-def write_bads(bads_path, bads):
-    with open(bads_path, "w") as f:
-        f.write("\t".join(bads))
-
-
-def annotate_fif(raw_path, bads_path, annot_path, is_emptyroom):
-    bads = read_bads(bads_path) if bads_path.exists() else None
-    annotations = read_annotations(annot_path) if annot_path.exists() else None
-
-    bads, annotations = inspect_fif(raw_path, bads, annotations, is_emptyroom)
-
-    write_bads(bads_path, bads)
-    annotations.save(str(annot_path), overwrite=True)
+    logger.info(f"Channels marked as bad: {bads}")
+    logger.info(f"Annotations: {annotations}")
 
 
 if __name__ == "__main__":
-    raw = cfg.maxfilt_path
-    bads = cfg.postmaxfilt_bads_path
-    annot = cfg.postmaxfilt_annotations_path
-
-    print(f"{raw=}, {bads=}, {annot=}")
-    annotate_fif(raw, bads, annot, is_emptyroom=False)
+    main()

@@ -15,7 +15,7 @@ Band = Tuple[float, float]
 
 def annot_muscle(
     fif_path: Path,
-    prev_annot,
+    prev_annot: Annotations,
     z_thresh: float = 5,
     filt_freq: Band = (110, 200),
     debug: bool = True,
@@ -23,10 +23,9 @@ def annot_muscle(
     """Automatically annotate muscle segments and set them inplace"""
     raw = read_raw_fif(fif_path, preload=True)
     params = dict(ch_type="mag", threshold=z_thresh, min_length_good=1, filter_freq=filt_freq)
-    annots, muscle_score = annotate_muscle_zscore(raw, **params)
+    annots, _ = annotate_muscle_zscore(raw, **params)
     # need to set muscle annotations first and then add existing. this way there's no conflict
     # between their orig_time; see docs for mne.Annotations for more detail on orig_time
-    # prev_annot = raw.annotations
     raw.set_annotations(annots)
     if prev_annot is not None:
         raw.set_annotations(raw.annotations + prev_annot)
