@@ -1,0 +1,11 @@
+defaults:
+  - paths
+
+output_dir: ${.derivatives}/01-maxfilt_bads
+
+bad_channels: ${.output_dir}/${bids_subject}/${bids_subject}_${bids_task}_bads.tsv
+annotations: ${.output_dir}/${bids_subject}/${bids_subject}_${bids_task}_annot.fif
+
+hydra:
+  run:
+    dir: ${...output_dir}/${bids_subject}

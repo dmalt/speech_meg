@@ -1,0 +1,9 @@
+bids_root: /home/altukhov/Data/speech_meg/rawdata
+derivatives: ${bids_root}/derivatives
+
+subject: ???
+task: ???
+
+bids_subject: sub-${subject}
+bids_task: task-${task}
+raw_path: ${bids_root}/${bids_subject}/meg/${bids_subject}_${bids_task}_meg.fif

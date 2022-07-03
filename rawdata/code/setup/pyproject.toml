@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "speech"
-version = "0.1.0"
+version = "0.0.1"
 description = ""
 authors = ["Dmitrii Altukhov <dm.altukhov@ya.ru>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 mne = "^0.24.1"
 setuptools = "^60.9.3"
 pip = "^22.0.4"

@@ -1,0 +1,10 @@
+defaults:
+  - paths
+  - 01-mark_bads_maxfilter@annotate_for_maxfilt
+
+output_dir: ${derivatives}/02-apply_maxfilt
+maxfiltered: ${.output_dir}/${bids_subject}/${bids_subject}_${bids_task}_proc-maxfilt_meg.fif
+
+hydra:
+  run:
+    dir: ${...output_dir}/${bids_subject}

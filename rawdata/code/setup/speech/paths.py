@@ -2,7 +2,7 @@ from pathlib import Path
 
 from .mi_config import bands
 
-BIDS_ROOT = Path("/home/altukhov/Data/speech/rawdata")
+BIDS_ROOT = Path("/home/altukhov/Data/speech_meg/rawdata")
 DERIVATIVES = BIDS_ROOT / "derivatives"
 
 BADS = DERIVATIVES / "01-maxfilt_bads"
@@ -19,7 +19,8 @@ MFCCS_MI = DERIVATIVES / "mfcc_mi"
 RESAMPLED = DERIVATIVES / "08-resample"
 
 
-s = subject = "01"
+# s = subject = "01"
+s = subject = "test"
 t = task = "speech"
 # s = subject = "02"
 # t = task = "overtcovert"
