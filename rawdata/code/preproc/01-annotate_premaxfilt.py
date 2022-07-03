@@ -1,12 +1,9 @@
 #!/usr/bin/env python
-"""Manually mark bad channels and segments for maxfilter"""
-from __future__ import annotations
-
+"""Manually mark bad channels and possibly segments for maxfilter"""
 import logging
 from os import getcwd
 
 import hydra
-
 from utils import (
     annotate_raw_manually,
     prepare_annotated_raw,
