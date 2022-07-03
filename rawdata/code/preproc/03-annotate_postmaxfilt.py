@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Manually mark bad channels and segments for maxfilter"""
 from mne import read_annotations  # type: ignore
 from mne.io import read_raw_fif  # type: ignore
