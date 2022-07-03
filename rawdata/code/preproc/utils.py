@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from os import PathLike
+from os import PathLike, fspath
 from pathlib import Path
 from typing import Optional
 
@@ -24,7 +24,7 @@ def write_bad_channels(path: PathLike, bads: list[str]) -> None:
 
 
 def write_annotations(path: PathLike, annotations: Annotations) -> None:
-    annotations.save(str(path), overwrite=True)
+    annotations.save(fspath(path), overwrite=True)
 
 
 def annotate_raw_manually(raw, lowpass=100, highpass=None, n_channels=50):
@@ -37,7 +37,7 @@ def annotate_raw_manually(raw, lowpass=100, highpass=None, n_channels=50):
 
 
 def prepare_annotated_raw(raw_path: PathLike, bads_path: PathLike, annots_path: PathLike) -> Raw:
-    bads_path, annots_path = Path(bads_path), Path(annots_path)
+    bads_path, annots_path, raw_path = Path(bads_path), Path(annots_path), Path(raw_path)
     raw = read_raw_fif(raw_path, preload=True)
     raw.info["bads"] = read_bads(bads_path)
     annotations = read_annotations(annots_path) if annots_path.exists() else None
