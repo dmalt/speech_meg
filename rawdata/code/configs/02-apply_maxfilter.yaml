@@ -1,6 +1,6 @@
 defaults:
   - paths
-  - 01-mark_bads_maxfilter@annotate_for_maxfilt
+  - 01-annotate_premaxfilt@annotate_for_maxfilt
 
 output_dir: ${.derivatives_path}/02-apply_maxfilt
 maxfiltered_path: ${.output_dir}/${bids_subject}/${bids_subject}_${bids_task}_proc-maxfilt_meg.fif

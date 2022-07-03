@@ -14,7 +14,7 @@ from utils import (
 logger = logging.getLogger(__name__)
 
 
-@hydra.main(config_path="../configs/", config_name="01-mark_bads_maxfilter")
+@hydra.main(config_path="../configs/", config_name="01-annotate_premaxfilt")
 def main(cfg):
     logger.info(f"Starting new session for {__file__}")
     logger.info(f"Current working directory is {getcwd()}")
