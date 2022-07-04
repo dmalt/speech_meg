@@ -12,7 +12,7 @@ logger = logging.getLogger(__file__)
 
 @hydra.main(config_path="../configs/", config_name="05-inspect_ica")
 def main(cfg):
-    prepare_script(logger, script_name=__name__)
+    prepare_script(logger, script_name=__file__)
 
     raw = read_raw_fif(cfg.input.raw, preload=True)
     raw.filter(l_freq=cfg.filt.l_freq, h_freq=cfg.filt.h_freq)
