@@ -1,0 +1,13 @@
+defaults:
+  - paths@paths
+  - hydra
+  - _self_
+
+deriv_paths: ${paths.06-apply_ica}
+
+input:
+  raw: ${paths.02-apply_maxfilter.maxfilt_raw}
+  bad_ics: ${paths.05-inspect_ica.bad_ics}
+  ica: ${paths.04-compute_ica.solution}
+output:
+  raw: ${deriv_paths.raw}

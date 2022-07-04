@@ -1,31 +1,26 @@
-"""Apply ICA solution with marked bad components to raw data"""
+#!/usr/bin/env python
+"""Apply ICA solution to raw data excluding bad components"""
+import logging
+
+import hydra
 from mne.io import read_raw_fif  # type: ignore
 from mne.preprocessing import read_ica  # type: ignore
-from speech import config as cfg  # type: ignore
+from utils import prepare_script, read_ica_bads
+
+logger = logging.getLogger(__file__)
 
 
-def read_ica_bads(ica_bads_path):
-    with open(ica_bads_path, "r") as f:
-        line = f.readline()
-        bads = [int(b) for b in line.split("\t")] if line else []
-    return bads
+@hydra.main(config_path="../configs/", config_name="06-apply_ica")
+def main(cfg):
+    prepare_script(logger, __file__)
 
-
-def clean_fif(fif_path, ica_sol_path, ica_bads_path, cleaned_fif_path):
-    raw = read_raw_fif(fif_path, preload=True)
-    ica = read_ica(ica_sol_path)
-    ica.exclude = read_ica_bads(ica_bads_path)
-    print(f"Excluding {ica.exclude}")
+    raw = read_raw_fif(cfg.input.raw, preload=True)
+    ica = read_ica(cfg.input.ica)
+    ica.exclude = read_ica_bads(cfg.input.bad_ics)
+    logger.info(f"Excluding {ica.exclude}")
     ica.apply(raw)
-    raw.save(cleaned_fif_path, overwrite=True)
+    raw.save(cfg.output.raw, overwrite=True)
 
 
 if __name__ == "__main__":
-
-    # raw = cfg.cropped_path
-    raw = cfg.maxfilt_path
-    ica_sol = cfg.ica_sol_path
-    ica_bads_path = cfg.ica_bads_path
-    print(f"{ica_bads_path=}")
-    ica_cleaned = cfg.ica_cleaned
-    clean_fif(raw, ica_sol, ica_bads_path, ica_cleaned)
+    main()

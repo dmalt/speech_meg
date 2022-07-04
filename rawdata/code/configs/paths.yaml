@@ -46,3 +46,9 @@ root_data:
   subj_dir: ${.dir}/${..bids_subject}
   base: ${..02-apply_maxfilter.base}
   bad_ics: ${.subj_dir}/${.base}_bads.tsv
+
+06-apply_ica:
+  dir: ${..derivatives}/06-apply_ica
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-ica
+  raw: ${.subj_dir}/${.base}_meg.fif
