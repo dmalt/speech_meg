@@ -1,11 +1,6 @@
 defaults:
   - paths
 
-output_dir: ${.derivatives_path}/01-annotate_premaxfilt
-
-bad_channels_path: ${.output_dir}/${bids_subject}/${bids_subject}_${bids_task}_bads.tsv
-annotations_path: ${.output_dir}/${bids_subject}/${bids_subject}_${bids_task}_annot.fif
-
 hydra:
   run:
-    dir: ${...output_dir}/${bids_subject}
+    dir: ${01-annotate_premaxfilt.subj_dir}

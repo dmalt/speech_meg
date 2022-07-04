@@ -19,10 +19,11 @@ def main(cfg):
     logger.info(f"Starting new session for {__file__}")
     logger.info(f"Current working directory is {getcwd()}")
 
-    raw = prepare_annotated_raw(cfg.raw_path, cfg.bad_channels_path, cfg.annotations_path)
+    paths = cfg["01-annotate_premaxfilt"]
+    raw = prepare_annotated_raw(paths.input.raw, paths.output.bad_ch, paths.output.annots)
     bads, annotations = annotate_raw_manually(raw)
-    write_bad_channels(cfg.bad_channels_path, bads)
-    write_annotations(cfg.annotations_path, annotations)
+    write_bad_channels(paths.output.bad_ch, bads)
+    write_annotations(paths.output.annots, annotations)
 
     logger.info(f"Channels marked as bad: {bads}")
     logger.info(f"Annotations: {annotations}")

@@ -27,15 +27,14 @@ def main(cfg):
     logger.info(f"Starting new session for {__name__}")
     logger.info(f"Current working directory is {os.getcwd()}")
 
-    raw = prepare_annotated_raw(
-        cfg.raw_path,
-        cfg.annotate_for_maxfilt.bad_channels_path,
-        cfg.annotate_for_maxfilt.annotations_path,
-    )
+    paths = cfg["02-apply_maxfilter"]
+    raw = prepare_annotated_raw(paths.input.raw, paths.input.bad_ch, paths.input.annots)
     fix_mag_coil_types(raw.info)
     filter_chpi(raw, t_window=cfg.t_window)
-    raw = maxwell_filter(raw, cross_talk=cfg.ct_path, calibration=cfg.cal_path, coord_frame="meg")
-    raw.save(cfg.maxfiltered_path, overwrite=True)
+    raw = maxwell_filter(
+        raw, cross_talk=paths.input.ct, calibration=paths.input.cal, coord_frame="meg"
+    )
+    raw.save(paths.output.maxfilt_raw, overwrite=True)
 
 
 if __name__ == "__main__":

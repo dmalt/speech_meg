@@ -7,6 +7,28 @@ task: speech
 bids_subject: sub-${subject}
 bids_task: task-${task}
 
-raw_path: ${bids_root}/${bids_subject}/meg/${bids_subject}_${bids_task}_meg.fif
-ct_path: ${bids_root}/${bids_subject}/meg/${bids_subject}_acq-crosstalk_meg.fif
-cal_path: ${bids_root}/${bids_subject}/meg/${bids_subject}_acq-calibration_meg.dat
+root_data:
+  subj_dir: ${..bids_root}/${..bids_subject}
+  raw: ${.subj_dir}/meg/${bids_subject}_${bids_task}_meg.fif
+  ct: ${.subj_dir}/meg/${bids_subject}_acq-crosstalk_meg.fif
+  cal: ${.subj_dir}/meg/${bids_subject}_acq-calibration_meg.dat
+
+01-annotate_premaxfilt:
+  subj_dir: ${..derivatives_path}/01-annotate_premaxfilt/${..bids_subject}
+  input:
+    raw: ${...root_data.raw}
+  output:
+    bad_ch: ${..subj_dir}/${bids_subject}_${bids_task}_bads.tsv
+    annots: ${..subj_dir}/${bids_subject}_${bids_task}_annot.fif
+
+02-apply_maxfilter:
+  subj_dir: ${..derivatives_path}/02-apply_maxfilt/${..bids_subject}
+  bids_proc: proc-maxfilt
+  input:
+    raw: ${...root_data.raw}
+    ct: ${...root_data.ct}
+    cal: ${...root_data.cal}
+    bad_ch: ${...01-annotate_premaxfilt.output.bad_ch}
+    annots: ${...01-annotate_premaxfilt.output.annots}
+  output:
+    maxfilt_raw: ${..subj_dir}/${bids_subject}_${bids_task}_${..bids_proc}_meg.fif
