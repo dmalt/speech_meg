@@ -1,6 +1,12 @@
 defaults:
-  - paths
+  - paths@paths
+  - hydra
+  - _self_
 
-hydra:
-  run:
-    dir: ${01-annotate_premaxfilt.subj_dir}
+deriv_paths: ${paths.01-annotate_premaxfilt}
+
+input:
+  raw: ${paths.root_data.raw}
+output:
+  bad_ch: ${deriv_paths.bad_ch}
+  annots: ${deriv_paths.annots}

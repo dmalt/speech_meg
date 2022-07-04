@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from os import PathLike, fspath
 from pathlib import Path
 from typing import Optional
@@ -45,7 +46,7 @@ def prepare_annotated_raw(
 
     if annots_path is not None and Path(annots_path).exists():
         annotations = read_annotations(Path(annots_path))
-        update_annotations(raw, annotations)
+        update_annotations(raw, annotations, overwrite=True)
     return raw
 
 
@@ -56,3 +57,17 @@ def update_annotations(raw: Raw, annotations: Annotations, overwrite=False) -> N
     raw.set_annotations(annotations)
     if prev_annot is not None and not overwrite:
         raw.set_annotations(raw.annotations + prev_annot)
+
+
+def annotation_pipeline(logger, cfg):
+    logger.info(f"Starting new session for {__file__}")
+    logger.info(f"Current working directory is {os.getcwd()}")
+
+    raw = prepare_annotated_raw(cfg.input.raw, cfg.output.bad_ch, cfg.output.annots)
+    bads, annotations = annotate_raw_manually(raw)
+    write_bad_channels(cfg.output.bad_ch, bads)
+    write_annotations(cfg.output.annots, annotations)
+
+    logger.info(f"Channels marked as bad: {bads}")
+    logger.info(f"Annotations: {annotations}")
+

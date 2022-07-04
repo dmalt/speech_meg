@@ -1,12 +1,13 @@
 defaults:
-  - paths
-  - 02-apply_maxfilter@maxfiltered
+  - paths@paths
+  - hydra
+  - _self_
 
-output_dir: ${.derivatives_path}/03-annotate_postmaxfilt
+deriv_paths: ${paths.03-annotate_postmaxfilt}
 
-bad_channels_path: ${.output_dir}/${bids_subject}/${bids_subject}_${bids_task}_bads.tsv
-annotations_path: ${.output_dir}/${bids_subject}/${bids_subject}_${bids_task}_annot.fif
+input:
+  raw: ${paths.02-apply_maxfilter.maxfilt_raw}
 
-hydra:
-  run:
-    dir: ${...output_dir}/${bids_subject}
+output:
+  bad_ch: ${deriv_paths.bad_ch}
+  annots: ${deriv_paths.annots}

@@ -1,0 +1,23 @@
+defaults:
+  - paths@paths
+  - hydra
+  - _self_
+
+deriv_paths: ${paths.04-compute_ica}
+
+input:
+  raw: ${paths.02-apply_maxfilter.maxfilt_raw}
+  annots: ${paths.03-annotate_postmaxfilt.annots}
+output:
+  solution: ${deriv_paths.solution}
+  report: ${deriv_paths.report}
+
+ica_init:
+  n_components: 0.99
+  random_state: 28
+ica_fit:
+  decim: 3
+  annot_rej: True
+filt:
+  l_freq: 1
+  h_freq: null

@@ -28,19 +28,19 @@ def compute_ica(raw: Raw, init_cfg, fit_cfg) -> ICA:
     return ica
 
 
-@hydra.main(config_path="../configs/", config_name="04-apply_maxfilt")
+@hydra.main(config_path="../configs/", config_name="04-compute_ica")
 def main(cfg):
     logger.info(f"Starting new session for {__file__}")
     logger.info(f"Current working directory is {os.getcwd()}")
 
-    raw = prepare_annotated_raw(cfg.maxfilt.maxfiltered_path, None, cfg.annots.annotations_path)
+    raw = prepare_annotated_raw(cfg.input.raw, None, cfg.input.annots)
     raw.filter(l_freq=cfg.filt.l_freq, h_freq=cfg.filt.h_freq)
 
-    ica = compute_ica(raw, cfg.ica_init_cfg, cfg.ica_fit_cfg)
-    ica.save(cfg.ica_sol_path, overwrite=True)
+    ica = compute_ica(raw, cfg.ica_init, cfg.ica_fit)
+    ica.save(cfg.output.solution, overwrite=True)
 
     report = generate_report(ica)
-    report.save(cfg.ica_report_path, overwrite=True, open_browser=False)
+    report.save(cfg.output.report, overwrite=True, open_browser=False)
 
 
 if __name__ == "__main__":
