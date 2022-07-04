@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import os
 from os import PathLike, fspath
 from pathlib import Path
@@ -7,6 +8,7 @@ from typing import Optional
 
 from mne import Annotations, read_annotations  # type: ignore
 from mne.io import Raw, read_raw_fif  # type: ignore
+from mne.preprocessing import ICA  # type: ignore
 
 
 def read_bads(bads_path: Optional[PathLike]) -> list[str]:
@@ -71,3 +73,21 @@ def annotation_pipeline(logger, cfg):
     logger.info(f"Channels marked as bad: {bads}")
     logger.info(f"Annotations: {annotations}")
 
+
+def read_ica_bads(ica_bads_path: PathLike) -> list[int]:
+    if not Path(ica_bads_path).exists():
+        return []
+    with open(ica_bads_path, "r") as f:
+        line = f.readline()
+        bads = [int(b) for b in line.split("\t")] if line else []
+    return bads
+
+
+def write_ica_bads(ica_bads_path: PathLike, ica: ICA) -> None:
+    with open(ica_bads_path, "w") as f:
+        f.write("\t".join([str(ic) for ic in ica.exclude]))
+
+
+def prepare_script(logger: logging.Logger, script_name: str) -> None:
+    logger.info(f"Starting new session for {script_name}")
+    logger.info(f"Current working directory is {os.getcwd()}")

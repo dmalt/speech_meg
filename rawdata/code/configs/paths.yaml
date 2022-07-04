@@ -40,3 +40,9 @@ root_data:
   base: ${..02-apply_maxfilter.base}
   solution: ${.subj_dir}/${.base}_ica.fif
   report: ${.subj_dir}/${.base}_ica.html
+
+05-inspect_ica:
+  dir: ${..derivatives}/05-inspect_ica
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..02-apply_maxfilter.base}
+  bad_ics: ${.subj_dir}/${.base}_bads.tsv
