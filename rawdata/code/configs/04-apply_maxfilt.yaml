@@ -1,0 +1,25 @@
+defaults:
+  - paths
+  - 03-annotate_postmaxfilt@annots
+  - 02-apply_maxfilter@maxfilt
+
+output_dir: ${.derivatives_path}/04-compute_ica/${bids_subject}
+base_path: ${.output_dir}/${bids_subject}_${bids_task}_${.maxfilt.bids_proc}_ica
+ica_sol_path: ${.base_path}.fif
+ica_report_path: ${.base_path}.html
+
+ica_init_cfg:
+  n_components: 0.99
+  random_state: 28
+
+ica_fit_cfg:
+  decim: 3
+  annot_rej: True
+
+filt:
+  l_freq: 1
+  h_freq: null
+
+hydra:
+  run:
+    dir: ${...output_dir}
