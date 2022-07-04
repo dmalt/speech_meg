@@ -36,12 +36,15 @@ def annotate_raw_manually(raw, lowpass=100, highpass=None, n_channels=50):
     return raw.info["bads"], raw.annotations
 
 
-def prepare_annotated_raw(raw_path: PathLike, bads_path: PathLike, annots_path: PathLike) -> Raw:
-    bads_path, annots_path, raw_path = Path(bads_path), Path(annots_path), Path(raw_path)
+def prepare_annotated_raw(
+    raw_path: PathLike, bads_path: Optional[PathLike], annots_path: Optional[PathLike]
+) -> Raw:
+    raw_path = Path(raw_path)
     raw = read_raw_fif(raw_path, preload=True)
     raw.info["bads"] = read_bads(bads_path)
-    annotations = read_annotations(annots_path) if annots_path.exists() else None
-    if annotations is not None:
+
+    if annots_path is not None and Path(annots_path).exists():
+        annotations = read_annotations(Path(annots_path))
         update_annotations(raw, annotations)
     return raw
 
