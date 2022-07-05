@@ -3,7 +3,7 @@ defaults:
   - hydra
   - _self_
 
-deriv_paths: ${paths.01-annotate_premaxfilt}
+deriv_paths: ${paths.011-annotate_premaxfilt}
 
 input:
   raw: ${paths.root_data.raw}

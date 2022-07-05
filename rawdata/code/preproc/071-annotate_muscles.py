@@ -12,6 +12,7 @@ from mne import read_annotations  # type: ignore
 from mne.io import read_raw_fif  # type: ignore
 from mne.preprocessing import annotate_muscle_zscore  # type: ignore
 from omegaconf import OmegaConf
+
 from utils import prepare_script, update_annotations
 
 logger = logging.getLogger(__file__)
@@ -19,7 +20,7 @@ logger = logging.getLogger(__file__)
 Band = Tuple[float, float]
 
 
-@hydra.main(config_path="../configs/", config_name="07-annotate_muscles")
+@hydra.main(config_path="../configs/", config_name="071-annotate_muscles")
 def main(cfg):
     prepare_script(logger, script_name=__file__)
 

@@ -3,11 +3,11 @@ defaults:
   - hydra
   - _self_
 
-deriv_paths: ${paths.07-annotate_muscles}
+deriv_paths: ${paths.071-annotate_muscles}
 
 input:
-  raw: ${paths.06-apply_ica.raw}
-  annots: ${paths.03-annotate_postmaxfilt.annots}
+  raw: ${paths.061-apply_ica.raw}
+  annots: ${paths.031-annotate_postmaxfilt.annots}
 output:
   annots: ${deriv_paths.annots}
 

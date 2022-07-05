@@ -3,10 +3,10 @@ defaults:
   - hydra
   - _self_
 
-deriv_paths: ${paths.03-annotate_postmaxfilt}
+deriv_paths: ${paths.031-annotate_postmaxfilt}
 
 input:
-  raw: ${paths.02-apply_maxfilter.maxfilt_raw}
+  raw: ${paths.021-apply_maxfilter.maxfilt_raw}
 
 output:
   bad_ch: ${deriv_paths.bad_ch}

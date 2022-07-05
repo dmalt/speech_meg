@@ -17,12 +17,13 @@ import hydra
 from mne.channels import fix_mag_coil_types  # type: ignore
 from mne.chpi import filter_chpi  # type: ignore
 from mne.preprocessing import maxwell_filter  # type: ignore
+
 from utils import prepare_annotated_raw
 
 logger = logging.getLogger(__file__)
 
 
-@hydra.main(config_path="../configs/", config_name="02-apply_maxfilter")
+@hydra.main(config_path="../configs/", config_name="021-apply_maxfilter")
 def main(cfg):
     logger.info(f"Starting new session for {__name__}")
     logger.info(f"Current working directory is {os.getcwd()}")

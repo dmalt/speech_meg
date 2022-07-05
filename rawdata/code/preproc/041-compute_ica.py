@@ -7,6 +7,7 @@ import hydra
 from mne import Report  # type: ignore
 from mne.io import Raw  # type: ignore
 from mne.preprocessing import ICA  # type: ignore
+
 from utils import prepare_annotated_raw
 
 logger = logging.getLogger(__name__)
@@ -28,7 +29,7 @@ def compute_ica(raw: Raw, init_cfg, fit_cfg) -> ICA:
     return ica
 
 
-@hydra.main(config_path="../configs/", config_name="04-compute_ica")
+@hydra.main(config_path="../configs/", config_name="041-compute_ica")
 def main(cfg):
     logger.info(f"Starting new session for {__file__}")
     logger.info(f"Current working directory is {os.getcwd()}")

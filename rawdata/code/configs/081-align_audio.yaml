@@ -3,10 +3,10 @@ defaults:
   - hydra
   - _self_
 
-deriv_paths: ${paths.08-align_audio}
+deriv_paths: ${paths.081-align_audio}
 
 input:
-  raw: ${paths.06-apply_ica.raw}
+  raw: ${paths.061-apply_ica.raw}
   audio_hr: ${paths.root_data.audio}
 output:
   aligned_audio: ${deriv_paths.aligned_audio}

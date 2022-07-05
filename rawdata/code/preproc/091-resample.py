@@ -3,12 +3,13 @@ import logging
 
 import hydra
 from mne.io import read_raw_fif  # type: ignore
+
 from utils import prepare_script
 
 logger = logging.getLogger(__file__)
 
 
-@hydra.main(config_path="../configs/", config_name="09-resample")
+@hydra.main(config_path="../configs/", config_name="091-resample")
 def main(cfg):
     prepare_script(logger, __file__)
 

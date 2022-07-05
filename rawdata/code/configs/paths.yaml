@@ -16,60 +16,60 @@ root_data:
   audio: ${.subj_dir}/beh/${..bids_subject}_${..bids_task}_beh.wav
   words: ${.subj_dir}/beh/${..bids_subject}_${..bids_task}_beh.txt
 
-01-annotate_premaxfilt:
-  dir: ${..derivatives}/01-annotate_premaxfilt
+011-annotate_premaxfilt:
+  dir: ${..derivatives}/011-annotate_premaxfilt
   subj_dir: ${.dir}/${..bids_subject}
   base: ${..bids_subject}_${..bids_task}
   bad_ch: ${.subj_dir}/${.base}_bads.tsv
   annots: ${.subj_dir}/${.base}_annot.fif
 
-02-apply_maxfilter:
-  dir: ${..derivatives}/02-apply_maxfilt
+021-apply_maxfilter:
+  dir: ${..derivatives}/021-apply_maxfilt
   subj_dir: ${.dir}/${..bids_subject}
   base: ${..bids_subject}_${..bids_task}_proc-maxfilt
   maxfilt_raw: ${.subj_dir}/${.base}_meg.fif
 
-03-annotate_postmaxfilt:
-  dir: ${..derivatives}/03-annotate_postmaxfilt
+031-annotate_postmaxfilt:
+  dir: ${..derivatives}/031-annotate_postmaxfilt
   subj_dir: ${.dir}/${..bids_subject}
-  base: ${..02-apply_maxfilter.base}
+  base: ${..021-apply_maxfilter.base}
   bad_ch: ${.subj_dir}/${.base}_bads.tsv
   annots: ${.subj_dir}/${.base}_annot.fif
 
-04-compute_ica:
-  dir: ${..derivatives}/04-compute_ica
+041-compute_ica:
+  dir: ${..derivatives}/041-compute_ica
   subj_dir: ${.dir}/${..bids_subject}
-  base: ${..02-apply_maxfilter.base}
+  base: ${..021-apply_maxfilter.base}
   solution: ${.subj_dir}/${.base}_ica.fif
   report: ${.subj_dir}/${.base}_ica.html
 
-05-inspect_ica:
-  dir: ${..derivatives}/05-inspect_ica
+051-inspect_ica:
+  dir: ${..derivatives}/051-inspect_ica
   subj_dir: ${.dir}/${..bids_subject}
-  base: ${..02-apply_maxfilter.base}
+  base: ${..021-apply_maxfilter.base}
   bad_ics: ${.subj_dir}/${.base}_bads.tsv
 
-06-apply_ica:
-  dir: ${..derivatives}/06-apply_ica
+061-apply_ica:
+  dir: ${..derivatives}/061-apply_ica
   subj_dir: ${.dir}/${..bids_subject}
   base: ${..bids_subject}_${..bids_task}_proc-ica
   raw: ${.subj_dir}/${.base}_meg.fif
 
-07-annotate_muscles:
-  dir: ${..derivatives}/07-annotate_muscles
+071-annotate_muscles:
+  dir: ${..derivatives}/071-annotate_muscles
   subj_dir: ${.dir}/${..bids_subject}
   base: ${..bids_subject}_${..bids_task}_proc-ica
   annots: ${.subj_dir}/${.base}_annot.fif
 
-08-align_audio:
-  dir: ${..derivatives}/08-align_audio
+081-align_audio:
+  dir: ${..derivatives}/081-align_audio
   subj_dir: ${.dir}/${..bids_subject}
   base: ${..bids_subject}_${..bids_task}_proc-align
   aligned_audio: ${.subj_dir}/${.base}_beh.wav
   report: ${.subj_dir}/${.base}_beh.html
 
-09-resample:
-  dir: ${..derivatives}/09-resample
+091-resample:
+  dir: ${..derivatives}/091-resample
   subj_dir: ${.dir}/${..bids_subject}
   base: ${..bids_subject}_${..bids_task}_proc-resamp
   raw: ${.subj_dir}/${.base}_meg.fif

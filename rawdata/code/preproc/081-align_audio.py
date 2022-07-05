@@ -17,6 +17,7 @@ from librosa import display
 from mne import Report  # type: ignore
 from mne.io import read_raw_fif  # type: ignore
 from scipy import signal  # type: ignore
+
 from utils import prepare_script
 
 logger = logging.getLogger(__file__)
@@ -89,7 +90,7 @@ def resample(nsamples: int, sr_from: float, sr_to: float) -> int:
     return int(nsamples / sr_from * sr_to)
 
 
-@hydra.main(config_path="../configs/", config_name="08-align_audio")
+@hydra.main(config_path="../configs/", config_name="081-align_audio")
 def main(cfg):
     prepare_script(logger, script_name=__file__)
     subj = cfg.paths.bids_subject

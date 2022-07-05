@@ -5,12 +5,13 @@ import logging
 import hydra
 from mne.io import read_raw_fif  # type: ignore
 from mne.preprocessing import read_ica  # type: ignore
+
 from utils import prepare_script, read_ica_bads, write_ica_bads
 
 logger = logging.getLogger(__file__)
 
 
-@hydra.main(config_path="../configs/", config_name="05-inspect_ica")
+@hydra.main(config_path="../configs/", config_name="051-inspect_ica")
 def main(cfg):
     prepare_script(logger, script_name=__file__)
 

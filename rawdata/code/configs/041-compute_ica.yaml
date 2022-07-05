@@ -3,11 +3,11 @@ defaults:
   - hydra
   - _self_
 
-deriv_paths: ${paths.04-compute_ica}
+deriv_paths: ${paths.041-compute_ica}
 
 input:
-  raw: ${paths.02-apply_maxfilter.maxfilt_raw}
-  annots: ${paths.03-annotate_postmaxfilt.annots}
+  raw: ${paths.021-apply_maxfilter.maxfilt_raw}
+  annots: ${paths.031-annotate_postmaxfilt.annots}
 output:
   solution: ${deriv_paths.solution}
   report: ${deriv_paths.report}
