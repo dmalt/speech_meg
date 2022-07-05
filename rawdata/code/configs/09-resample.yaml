@@ -1,0 +1,13 @@
+defaults:
+  - paths@paths
+  - hydra
+  - _self_
+
+deriv_paths: ${paths.09-resample}
+
+input:
+  raw: ${paths.06-apply_ica.raw}
+output:
+  raw: ${deriv_paths.raw}
+
+sfreq: 500

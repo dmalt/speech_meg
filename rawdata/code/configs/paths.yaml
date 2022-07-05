@@ -67,3 +67,9 @@ root_data:
   base: ${..bids_subject}_${..bids_task}_proc-align
   aligned_audio: ${.subj_dir}/${.base}_beh.wav
   report: ${.subj_dir}/${.base}_beh.html
+
+09-resample:
+  dir: ${..derivatives}/09-resample
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-resamp
+  raw: ${.subj_dir}/${.base}_meg.fif
