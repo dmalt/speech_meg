@@ -13,6 +13,8 @@ root_data:
   raw: ${.subj_dir}/meg/${..bids_subject}_${..bids_task}_meg.fif
   ct: ${.subj_dir}/meg/${..bids_subject}_acq-crosstalk_meg.fif
   cal: ${.subj_dir}/meg/${..bids_subject}_acq-calibration_meg.dat
+  audio: ${.subj_dir}/beh/${..bids_subject}_${..bids_task}_beh.wav
+  words: ${.subj_dir}/beh/${..bids_subject}_${..bids_task}_beh.txt
 
 01-annotate_premaxfilt:
   dir: ${..derivatives}/01-annotate_premaxfilt
@@ -58,3 +60,10 @@ root_data:
   subj_dir: ${.dir}/${..bids_subject}
   base: ${..bids_subject}_${..bids_task}_proc-ica
   annots: ${.subj_dir}/${.base}_annot.fif
+
+08-align_audio:
+  dir: ${..derivatives}/08-align_audio
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-align
+  aligned_audio: ${.subj_dir}/${.base}_beh.wav
+  report: ${.subj_dir}/${.base}_beh.html
