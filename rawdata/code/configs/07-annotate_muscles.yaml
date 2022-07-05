@@ -1,0 +1,23 @@
+defaults:
+  - paths@paths
+  - hydra
+  - _self_
+
+deriv_paths: ${paths.07-annotate_muscles}
+
+input:
+  raw: ${paths.06-apply_ica.raw}
+  annots: ${paths.03-annotate_postmaxfilt.annots}
+output:
+  annots: ${deriv_paths.annots}
+
+# Rerun mne.preprocessing.annotate_muscle_zscore(), or edit annotations from
+# the previous run; can be "new" for the former or "edit" for the latter
+# If output.annots file doesn't exist, we fall back to the "new" mode
+mode: edit
+
+annotate_muscle_zscore_params:
+  threshold: 5
+  filter_freq: [110, 200]
+  min_length_good: 1
+  ch_type: mag

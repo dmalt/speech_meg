@@ -52,3 +52,9 @@ root_data:
   subj_dir: ${.dir}/${..bids_subject}
   base: ${..bids_subject}_${..bids_task}_proc-ica
   raw: ${.subj_dir}/${.base}_meg.fif
+
+07-annotate_muscles:
+  dir: ${..derivatives}/07-annotate_muscles
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-ica
+  annots: ${.subj_dir}/${.base}_annot.fif
