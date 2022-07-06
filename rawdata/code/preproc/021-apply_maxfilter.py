@@ -11,22 +11,19 @@ for emptyroom data
 
 """
 import logging
-import os
 
 import hydra
 from mne.channels import fix_mag_coil_types  # type: ignore
 from mne.chpi import filter_chpi  # type: ignore
 from mne.preprocessing import maxwell_filter  # type: ignore
-
-from utils import prepare_annotated_raw
+from utils import prepare_annotated_raw, prepare_script
 
 logger = logging.getLogger(__file__)
 
 
 @hydra.main(config_path="../configs/", config_name="021-apply_maxfilter")
 def main(cfg):
-    logger.info(f"Starting new session for {__name__}")
-    logger.info(f"Current working directory is {os.getcwd()}")
+    prepare_script(logger, script_name=__file__)
 
     raw = prepare_annotated_raw(cfg.input.raw, cfg.input.bad_ch, cfg.input.annots)
     fix_mag_coil_types(raw.info)
