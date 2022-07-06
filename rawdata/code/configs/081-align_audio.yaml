@@ -2,6 +2,7 @@ defaults:
   - paths@paths
   - hydra
   - _self_
+  - subject: test
 
 deriv_paths: ${paths.081-align_audio}
 
@@ -15,9 +16,5 @@ output:
 audio_ch: MISC008
 audio_dsamp_freq: 22050
 
-correction:
-  default: 1
-
-report_segments_sec:
-  default: [[10, 20]]
-  sub-test: [[10, 20], [28, 32]]
+correction: 1
+report_segments_sec: [[10, 20]]

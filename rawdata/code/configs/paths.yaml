@@ -1,8 +1,8 @@
 bids_root: /home/altukhov/Data/speech_meg/rawdata
 derivatives: ${.bids_root}/derivatives
 
-subject: test
-task: speech
+subject: ${subj_id}
+task: ${task}
 
 bids_subject: sub-${.subject}
 bids_task: task-${.task}

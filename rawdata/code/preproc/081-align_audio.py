@@ -17,7 +17,6 @@ from librosa import display
 from mne import Report  # type: ignore
 from mne.io import read_raw_fif  # type: ignore
 from scipy import signal  # type: ignore
-
 from utils import prepare_script
 
 logger = logging.getLogger(__file__)
@@ -93,7 +92,6 @@ def resample(nsamples: int, sr_from: float, sr_to: float) -> int:
 @hydra.main(config_path="../configs/", config_name="081-align_audio")
 def main(cfg):
     prepare_script(logger, script_name=__file__)
-    subj = cfg.paths.bids_subject
 
     audio_meg, sr_meg = read_meg_audio(cfg.input.raw, cfg.audio_ch)
 
@@ -101,8 +99,7 @@ def main(cfg):
     audio_lowres, sr_lowres = lb.load(cfg.input.audio_hr, sr=sr_meg)
 
     logger.info("Computing lowres shift")
-    correction = cfg.correction.get(subj, cfg.correction.default)
-    shift_lowres = compute_shift(audio_meg, audio_lowres, correction)
+    shift_lowres = compute_shift(audio_meg, audio_lowres, cfg.correction)
 
     logger.info("Loading and downsampling highres wav audio")
     audio_highres, sr_highres = lb.load(cfg.input.audio_hr, sr=cfg.audio_dsamp_freq)
@@ -115,7 +112,7 @@ def main(cfg):
 
     logger.info("Preparing and saving report")
     report = AlignmentReport(audio_meg, sr_meg, "MEG", audio_highres_aligned, sr_highres, "wav HR")
-    for seg in cfg.report_segments_sec.get(subj, cfg.report_segments_sec.default):
+    for seg in cfg.report_segments_sec:
         report.add_segment(*seg)
     report.save(cfg.output.report)
     logger.info("Finished")

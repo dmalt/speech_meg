@@ -2,6 +2,7 @@ defaults:
   - paths@paths
   - hydra
   - _self_
+  - subject: test
 
 deriv_paths: ${paths.051-inspect_ica}
 

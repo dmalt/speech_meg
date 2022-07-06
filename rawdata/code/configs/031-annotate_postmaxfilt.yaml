@@ -2,6 +2,7 @@ defaults:
   - paths@paths
   - hydra
   - _self_
+  - subject: test
 
 deriv_paths: ${paths.031-annotate_postmaxfilt}
 
