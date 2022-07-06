@@ -36,6 +36,12 @@ root_data:
   bad_ch: ${.subj_dir}/${.base}_bads.tsv
   annots: ${.subj_dir}/${.base}_annot.fif
 
+032-annotate_speech:
+  dir: ${..derivatives}/032-annotate_speech
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..021-apply_maxfilter.base}
+  annots: ${.subj_dir}/${.base}_annot.fif
+
 041-compute_ica:
   dir: ${..derivatives}/041-compute_ica
   subj_dir: ${.dir}/${..bids_subject}
