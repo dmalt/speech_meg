@@ -42,6 +42,7 @@ def annotate_raw_manually(raw, lowpass=100, highpass=None, n_channels=50):
 def prepare_annotated_raw(
     raw_path: PathLike, bads_path: Optional[PathLike], annots_path: Optional[PathLike]
 ) -> Raw:
+    """Read raw data, and set bad channels and annotations loaded from files"""
     raw_path = Path(raw_path)
     raw = read_raw_fif(raw_path, preload=True)
     raw.info["bads"] = read_bads(bads_path)
