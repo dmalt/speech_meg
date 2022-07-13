@@ -1,4 +1,5 @@
 defaults:
+  - schema
   - paths@paths
   - hydra
   - _self_
