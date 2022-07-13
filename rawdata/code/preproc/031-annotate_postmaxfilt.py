@@ -46,9 +46,12 @@ def main(cfg: Config):
     prepare_script(logger, script_name=__file__)
 
     raw = read_raw_fif(cfg.input.raw)
-    if Path(cfg.input.annots).exists() and cfg.mode == AnnotMode.NEW:
-        raw.set_annotations(read_annotations(cfg.input.annots))
-    if Path(cfg.output.annots).exists() and cfg.mode == AnnotMode.EDIT:
+    if not Path(cfg.output.annots).exists() or cfg.mode == AnnotMode.NEW:
+        annots = read_annotations(cfg.input.annots) if Path(cfg.input.annots).exists() else None
+        if annots is None:
+            logger.warning(f"Input annotations file is missing at {cfg.input.annots}")
+        raw.set_annotations(annots)
+    else:
         raw.set_annotations(read_annotations(cfg.output.annots))
 
     raw.plot(block=True, lowpass=cfg.lowpass, highpass=cfg.highpass, n_channels=cfg.n_channels)
