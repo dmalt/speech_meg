@@ -1,0 +1,13 @@
+defaults:
+  - paths@paths
+  - hydra
+  - _self_
+  - subject: test
+
+deriv_paths: ${paths.033-annotate_covert}
+
+input:
+  raw: ${paths.021-apply_maxfilter.maxfilt_raw}
+  annots: ${paths.032-annotate_speech.annots}
+output:
+  annots: ${deriv_paths.annots}
