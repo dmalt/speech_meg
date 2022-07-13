@@ -1,4 +1,5 @@
 defaults:
+  - schema
   - paths@paths
   - hydra
   - _self_
@@ -8,6 +9,5 @@ deriv_paths: ${paths.032-annotate_speech}
 
 input:
   raw: ${paths.021-apply_maxfilter.maxfilt_raw}
-  annots: ${paths.031-annotate_postmaxfilt.annots}
 output:
   annots: ${deriv_paths.annots}
