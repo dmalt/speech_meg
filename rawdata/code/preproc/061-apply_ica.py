@@ -44,7 +44,7 @@ def main(cfg: Config):
     ica = mne.preprocessing.read_ica(cfg.input.ica)
     ica.exclude = read_ica_bads(cfg.input.bad_ics)
 
-    logger.info(f"Excluding {ica.exclude}")
+    logger.info(f"Excluding ICs {ica.exclude}")
     ica.apply(raw)
     raw.save(cfg.output.raw, overwrite=True)
 
