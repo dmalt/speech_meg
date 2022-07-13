@@ -1,4 +1,5 @@
 defaults:
+  - schema
   - paths@paths
   - hydra
   - _self_
@@ -17,5 +18,5 @@ output:
 audio_ch: MISC008
 audio_dsamp_freq: 22050
 
-correction: 1
+correction_samp: 1
 report_segments_sec: [[10, 20]]

@@ -7,19 +7,46 @@ Also, downsample wav audio (when loading) to the target frequency
 
 import logging
 from dataclasses import dataclass, field
+from typing import List
 
 import hydra
 import librosa as lb  # type: ignore
 import matplotlib.pyplot as plt  # type: ignore
+import mne  # type: ignore
 import numpy as np  # type: ignore
+import scipy.signal  # type: ignore
 import soundfile as sf  # type: ignore
+from hydra.core.config_store import ConfigStore
 from librosa import display
-from mne import Report  # type: ignore
-from mne.io import read_raw_fif  # type: ignore
-from scipy import signal  # type: ignore
-from utils import prepare_script
+from utils import BaseConfig, prepare_script
 
 logger = logging.getLogger(__file__)
+
+
+@dataclass
+class Input:
+    raw: str
+    audio_hr: str
+
+
+@dataclass
+class Output:
+    aligned_audio: str
+    report: str
+
+
+@dataclass
+class Config(BaseConfig):
+    input: Input
+    output: Output
+    audio_ch: str
+    audio_dsamp_freq: int
+    correction_samp: int
+    report_segments_sec: List
+
+
+cs = ConfigStore.instance()
+cs.store(name="schema", node=Config)
 
 
 @dataclass
@@ -30,7 +57,7 @@ class AlignmentReport:
     audio_y: np.ndarray
     sr_y: int
     label_y: str
-    report: Report = field(default_factory=Report)
+    report: mne.Report = field(default_factory=mne.Report)
 
     def __post_init__(self) -> None:
         self.audio_x = scale(self.audio_x)
@@ -58,15 +85,15 @@ def scale(signal: np.ndarray) -> np.ndarray:
     return signal
 
 
-def compute_shift(audio_meg: np.ndarray, audio_lowres: np.ndarray, correction: int) -> int:
+def compute_shift(audio_meg: np.ndarray, audio_lowres: np.ndarray, correction_samp: int) -> int:
     """
     Compute shift for audio_lowres to be aligned with audio_meg
 
     Identical sampling rates are assumed
 
     """
-    corr = signal.correlate(audio_meg, audio_lowres, mode="full")
-    return corr.argmax() - len(audio_lowres) + correction
+    corr = scipy.signal.correlate(audio_meg, audio_lowres, mode="full")
+    return corr.argmax() - len(audio_lowres) + correction_samp
 
 
 def align_audio(audio: np.ndarray, shift: int, target_duration: int) -> np.ndarray:
@@ -79,7 +106,7 @@ def align_audio(audio: np.ndarray, shift: int, target_duration: int) -> np.ndarr
 
 
 def read_meg_audio(raw_path: str, audio_ch):
-    raw = read_raw_fif(raw_path, preload=True)
+    raw = mne.io.read_raw_fif(raw_path, preload=True)
     audio_meg = np.squeeze(raw.get_data(picks=audio_ch, reject_by_annotation=None))
     sr_meg = raw.info["sfreq"]
     return audio_meg, sr_meg
@@ -90,7 +117,7 @@ def resample(nsamples: int, sr_from: float, sr_to: float) -> int:
 
 
 @hydra.main(config_path="../configs/", config_name="081-align_audio")
-def main(cfg):
+def main(cfg: Config):
     prepare_script(logger, script_name=__file__)
 
     audio_meg, sr_meg = read_meg_audio(cfg.input.raw, cfg.audio_ch)
@@ -99,7 +126,7 @@ def main(cfg):
     audio_lowres, sr_lowres = lb.load(cfg.input.audio_hr, sr=sr_meg)
 
     logger.info("Computing lowres shift")
-    shift_lowres = compute_shift(audio_meg, audio_lowres, cfg.correction)
+    shift_lowres = compute_shift(audio_meg, audio_lowres, cfg.correction_samp)
     logger.info(f"{shift_lowres=}")
 
     logger.info("Loading and downsampling highres wav audio")
@@ -120,4 +147,4 @@ def main(cfg):
 
 
 if __name__ == "__main__":
-    main()  # pyright: ignore
+    main()
