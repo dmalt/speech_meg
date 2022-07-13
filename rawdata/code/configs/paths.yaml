@@ -42,6 +42,12 @@ root_data:
   base: ${..021-apply_maxfilter.base}
   annots: ${.subj_dir}/${.base}_annot.fif
 
+033-annotate_covert:
+  dir: ${..derivatives}/033-annotate_covert
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..021-apply_maxfilter.base}
+  annots: ${.subj_dir}/${.base}_annot.fif
+
 041-compute_ica:
   dir: ${..derivatives}/041-compute_ica
   subj_dir: ${.dir}/${..bids_subject}
