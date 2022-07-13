@@ -1,4 +1,5 @@
 defaults:
+  - schema
   - paths@paths
   - hydra
   - _self_
@@ -8,7 +9,14 @@ deriv_paths: ${paths.031-annotate_postmaxfilt}
 
 input:
   raw: ${paths.021-apply_maxfilter.maxfilt_raw}
+  annots: ${paths.011-annotate_premaxfilt.annots}
 
 output:
-  bad_ch: ${deriv_paths.bad_ch}
   annots: ${deriv_paths.annots}
+
+
+mode: EDIT
+
+lowpass: 100
+highpass: null
+n_channels: 50
