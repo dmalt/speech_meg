@@ -100,6 +100,7 @@ def main(cfg):
 
     logger.info("Computing lowres shift")
     shift_lowres = compute_shift(audio_meg, audio_lowres, cfg.correction)
+    logger.info(f"{shift_lowres=}")
 
     logger.info("Loading and downsampling highres wav audio")
     audio_highres, sr_highres = lb.load(cfg.input.audio_hr, sr=cfg.audio_dsamp_freq)
@@ -119,4 +120,4 @@ def main(cfg):
 
 
 if __name__ == "__main__":
-    main()
+    main()  # pyright: ignore
