@@ -11,3 +11,5 @@ input:
   raw: ${paths.021-apply_maxfilter.maxfilt_raw}
 output:
   annots: ${deriv_paths.annots}
+
+mode: EDIT
