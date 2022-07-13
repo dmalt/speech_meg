@@ -85,3 +85,9 @@ root_data:
   subj_dir: ${.dir}/${..bids_subject}
   base: ${..bids_subject}_${..bids_task}_proc-resamp
   raw: ${.subj_dir}/${.base}_meg.fif
+
+101-merge_annotations:
+  dir: ${..derivatives}/101-merge_annotations
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-resamp
+  annots: ${.subj_dir}/${.base}_annot.fif

@@ -1,0 +1,21 @@
+defaults:
+  - paths@paths
+  - hydra
+  - _self_
+  - subject: test
+  - optional subject_overrides: 101-merge_annotations_sub-${subject}
+
+deriv_paths: ${paths.101-merge_annotations}
+
+input:
+  annots_list:
+    - ${paths.031-annotate_postmaxfilt.annots}
+    - ${paths.032-annotate_speech.annots}
+    - ${paths.033-annotate_covert.annots}
+    - ${paths.071-annotate_muscles.annots}
+  raw: ${paths.091-resample.raw}
+output:
+  annots: ${deriv_paths.annots}
+
+
+mode: new
