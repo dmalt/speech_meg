@@ -1,4 +1,5 @@
 defaults:
+  - schema
   - paths@paths
   - hydra
   - _self_
@@ -11,3 +12,8 @@ input:
 output:
   bad_ch: ${deriv_paths.bad_ch}
   annots: ${deriv_paths.annots}
+
+
+lowpass: 100
+highpass: null
+n_channels: 50
