@@ -3,6 +3,7 @@ defaults:
   - hydra
   - _self_
   - subject: test
+  - optional subject_overrides: 081-align_audio_sub-${subject}
 
 deriv_paths: ${paths.081-align_audio}
 

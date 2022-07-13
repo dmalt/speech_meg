@@ -2,7 +2,3 @@
 
 subj_id: "02"
 task: overtcovert
-
-# align audio overrides
-correction: 110
-report_segments_sec: [[10, 20], [100, 120]]

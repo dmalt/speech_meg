@@ -2,5 +2,3 @@
 
 subj_id: test
 task: speech
-
-report_segments_sec: [[10, 20], [28, 32]]

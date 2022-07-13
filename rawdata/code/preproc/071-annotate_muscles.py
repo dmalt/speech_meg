@@ -12,7 +12,6 @@ from mne import read_annotations  # type: ignore
 from mne.io import read_raw_fif  # type: ignore
 from mne.preprocessing import annotate_muscle_zscore  # type: ignore
 from omegaconf import OmegaConf
-
 from utils import prepare_script, update_annotations
 
 logger = logging.getLogger(__file__)
@@ -39,7 +38,7 @@ def main(cfg):
         logger.info(f"Loaded annotations: {edited_muscle_annots}")
         raw.set_annotations(edited_muscle_annots)
     else:
-        logger.error(f"Bad mode type {cfg.mode=}")
+        logger.error(f"Bad mode type {cfg.mode=}. Should be `new` or `edit`")
         sys.exit(1)
     raw.plot(block=True)
     logger.info(f"Final annotations: {annotations}")
