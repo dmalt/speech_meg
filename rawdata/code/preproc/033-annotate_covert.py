@@ -4,9 +4,13 @@ import logging
 from pathlib import Path
 
 import hydra
+import matplotlib  # type: ignore
 import numpy as np
 from mne import annotations_from_events, find_events  # type: ignore
+
 from utils import prepare_annotated_raw, prepare_script, update_annotations, write_annotations
+
+matplotlib.use("TkAgg")
 
 logger = logging.getLogger(__file__)
 

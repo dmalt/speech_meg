@@ -8,11 +8,15 @@ from pathlib import Path
 from typing import Tuple
 
 import hydra
+import matplotlib  # type: ignore
 from mne import read_annotations  # type: ignore
 from mne.io import read_raw_fif  # type: ignore
 from mne.preprocessing import annotate_muscle_zscore  # type: ignore
 from omegaconf import OmegaConf
+
 from utils import prepare_script, update_annotations
+
+matplotlib.use("TkAgg")
 
 logger = logging.getLogger(__file__)
 

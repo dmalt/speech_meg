@@ -3,8 +3,11 @@
 import logging
 
 import hydra
+import matplotlib  # type: ignore
 
 from utils import annotation_pipeline
+
+matplotlib.use("TkAgg")
 
 logger = logging.getLogger(__file__)
 
