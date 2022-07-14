@@ -1,5 +1,7 @@
-bids_root: /home/altukhov/Data/speech_meg/rawdata
-derivatives: ${.bids_root}/derivatives
+defaults:
+  - bids_root
+
+derivatives: ${bids_root}/derivatives
 
 subject: ${subj_id}
 task: ${task}
@@ -8,7 +10,7 @@ bids_subject: sub-${.subject}
 bids_task: task-${.task}
 
 root_data:
-  dir: ${..bids_root}
+  dir: ${bids_root}
   subj_dir: ${.dir}/${..bids_subject}
   raw: ${.subj_dir}/meg/${..bids_subject}_${..bids_task}_meg.fif
   ct: ${.subj_dir}/meg/${..bids_subject}_acq-crosstalk_meg.fif

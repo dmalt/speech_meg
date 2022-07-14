@@ -3,8 +3,9 @@ from __future__ import annotations
 import logging
 import os
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum, auto
+from pathlib import Path
 from typing import Any
 
 import mne  # type: ignore
@@ -21,6 +22,9 @@ class BaseConfig:
     subj_id: str
     task: str
     deriv_paths: Any
+    # field is used to avoid the problem with inheritance and
+    # "non-default argument following the default one"
+    bids_root: str = field(default=str(Path(__file__).parent.parent.parent), init=False)
 
 
 def read_bad_channels(bads_path: str) -> list[str]:
