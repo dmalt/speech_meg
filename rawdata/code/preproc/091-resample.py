@@ -42,7 +42,7 @@ def main(cfg: Config):
     raw.resample(sfreq=cfg.sfreq)
 
     logger.info(f"Saving data to {cfg.output.raw}")
-    raw.save(cfg.output.raw)
+    raw.save(cfg.output.raw, overwrite=True)
 
 
 if __name__ == "__main__":
