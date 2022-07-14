@@ -1,0 +1,5 @@
+outs:
+- md5: be735bba1aa6536cffc51ff3ed897ed2.dir
+  size: 9379
+  nfiles: 5
+  path: sub-test
