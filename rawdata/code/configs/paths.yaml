@@ -4,11 +4,8 @@ defaults:
 
 derivatives: ${bids_root}/derivatives
 
-subject: ${subj_id}
-task: ${task}
-
-bids_subject: sub-${.subject}
-bids_task: task-${.task}
+bids_subject: sub-${subj_id}
+bids_task: task-${task}
 
 root_data:
   dir: ${bids_root}
