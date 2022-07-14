@@ -1,5 +1,6 @@
 defaults:
   - bids_root
+  - _self_
 
 derivatives: ${bids_root}/derivatives
 
