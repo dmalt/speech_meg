@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
+import sys
 from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Any
@@ -62,6 +63,38 @@ def update_annotations(raw: mne.io.Raw, annotations: mne.Annotations, overwrite=
         raw.set_annotations(raw.annotations + prev_annot)
 
 
+def is_repo_clean() -> bool:
+    return not os.popen("git status --porcelain").read()
+
+
+def get_latest_commit_hash() -> str:
+    return os.popen("git rev-parse HEAD").read().strip()
+
+
+def should_proceed(logger: logging.Logger) -> bool:
+    logger.warning("Git repository is not clean. Continue? (y/n)")
+    while (ans := input("-> ")).lower() not in ("y", "n"):
+        print("Please input 'y' or 'n'")
+    logger.info(f"Answer: {ans}")
+    return ans == "y"
+
+
+def dump_commit_hash(logger: logging.Logger) -> None:
+    if is_repo_clean():
+        logger.info("Git repository is clean. Dumping commit hash.")
+        logger.info(f"Current commit hash: {get_latest_commit_hash()}")
+    elif should_proceed(logger):
+        logger.info("Git repository is dirty. Dumping latest commit hash.")
+        logger.info(f"Latest commit hash: {get_latest_commit_hash()}")
+    else:
+        sys.exit(0)
+
+
 def prepare_script(logger: logging.Logger, script_name: str) -> None:
     logger.info(f"Starting new session for {script_name}")
     logger.info(f"Current working directory is {os.getcwd()}")
+    env = os.popen("conda env export").read()
+    logger.info("Dumping current environment")
+    logger.info(env)
+
+    dump_commit_hash(logger)
