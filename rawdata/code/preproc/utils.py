@@ -95,8 +95,11 @@ def dump_commit_hash(logger: logging.Logger) -> None:
 
 
 def prepare_script(logger: logging.Logger, script_name: str) -> None:
+    hostname = os.uname().nodename
+    username = os.getlogin()
     logger.info(f"Starting new session for {script_name}")
-    logger.info(f"Current working directory is {os.getcwd()}")
+    logger.info(f"{hostname=}, {username=}")
+    logger.debug(f"Current working directory is {os.getcwd()}")
     env = os.popen("conda env export").read()
     logger.info(f"Current environment dump:\n{env}")
 
