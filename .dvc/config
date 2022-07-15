@@ -1,4 +1,7 @@
 [core]
     remote = gdrive_remote
+    autostage = true
+[cache]
+    type = "hardlink,symlink"
 ['remote "gdrive_remote"']
     url = gdrive://1ZGbeFsXyb8NDOQICV2Ul6Eut0KMP0LMJ
