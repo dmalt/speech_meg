@@ -98,7 +98,6 @@ def prepare_script(logger: logging.Logger, script_name: str) -> None:
     logger.info(f"Starting new session for {script_name}")
     logger.info(f"Current working directory is {os.getcwd()}")
     env = os.popen("conda env export").read()
-    logger.info("Dumping current environment")
-    logger.info(env)
+    logger.info(f"Current environment dump:\n{env}")
 
     dump_commit_hash(logger)
