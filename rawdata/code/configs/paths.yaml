@@ -1,0 +1,93 @@
+defaults:
+  - bids_root
+  - _self_
+
+derivatives: ${bids_root}/derivatives
+
+bids_subject: sub-${subj_id}
+bids_task: task-${task}
+
+root_data:
+  dir: ${bids_root}
+  subj_dir: ${.dir}/${..bids_subject}
+  raw: ${.subj_dir}/meg/${..bids_subject}_${..bids_task}_meg.fif
+  ct: ${.subj_dir}/meg/${..bids_subject}_acq-crosstalk_meg.fif
+  cal: ${.subj_dir}/meg/${..bids_subject}_acq-calibration_meg.dat
+  audio: ${.subj_dir}/beh/${..bids_subject}_${..bids_task}_beh.wav
+  words: ${.subj_dir}/beh/${..bids_subject}_${..bids_task}_beh.txt
+
+011-annotate_premaxfilt:
+  dir: ${..derivatives}/011-annotate_premaxfilt
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}
+  bad_ch: ${.subj_dir}/${.base}_bads.tsv
+  annots: ${.subj_dir}/${.base}_annot.fif
+
+021-apply_maxfilter:
+  dir: ${..derivatives}/021-apply_maxfilt
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-maxfilt
+  maxfilt_raw: ${.subj_dir}/${.base}_meg.fif
+
+031-annotate_postmaxfilt:
+  dir: ${..derivatives}/031-annotate_postmaxfilt
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..021-apply_maxfilter.base}
+  bad_ch: ${.subj_dir}/${.base}_bads.tsv
+  annots: ${.subj_dir}/${.base}_annot.fif
+
+032-annotate_speech:
+  dir: ${..derivatives}/032-annotate_speech
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..021-apply_maxfilter.base}
+  annots: ${.subj_dir}/${.base}_annot.fif
+
+033-annotate_covert:
+  dir: ${..derivatives}/033-annotate_covert
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..021-apply_maxfilter.base}
+  annots: ${.subj_dir}/${.base}_annot.fif
+
+041-compute_ica:
+  dir: ${..derivatives}/041-compute_ica
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..021-apply_maxfilter.base}
+  solution: ${.subj_dir}/${.base}_ica.fif
+  report: ${.subj_dir}/${.base}_ica.html
+
+051-inspect_ica:
+  dir: ${..derivatives}/051-inspect_ica
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..021-apply_maxfilter.base}
+  bad_ics: ${.subj_dir}/${.base}_bads.tsv
+
+061-apply_ica:
+  dir: ${..derivatives}/061-apply_ica
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-ica
+  raw: ${.subj_dir}/${.base}_meg.fif
+
+071-annotate_muscles:
+  dir: ${..derivatives}/071-annotate_muscles
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-ica
+  annots: ${.subj_dir}/${.base}_annot.fif
+
+081-align_audio:
+  dir: ${..derivatives}/081-align_audio
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-align
+  aligned_audio: ${.subj_dir}/${.base}_beh.wav
+  report: ${.subj_dir}/${.base}_beh.html
+
+091-resample:
+  dir: ${..derivatives}/091-resample
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-resamp
+  raw: ${.subj_dir}/${.base}_meg.fif
+
+101-merge_annotations:
+  dir: ${..derivatives}/101-merge_annotations
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..bids_subject}_${..bids_task}_proc-resamp
+  annots: ${.subj_dir}/${.base}_annot.fif

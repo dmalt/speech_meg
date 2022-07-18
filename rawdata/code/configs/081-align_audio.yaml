@@ -1,0 +1,22 @@
+defaults:
+  - schema
+  - paths@paths
+  - hydra
+  - _self_
+  - subject: test
+  - optional subject_overrides: 081-align_audio_sub-${subject}
+
+deriv_paths: ${paths.081-align_audio}
+
+input:
+  raw: ${paths.061-apply_ica.raw}
+  audio_hr: ${paths.root_data.audio}
+output:
+  aligned_audio: ${deriv_paths.aligned_audio}
+  report: ${deriv_paths.report}
+
+audio_ch: MISC008
+audio_dsamp_freq: 22050
+
+correction_samp: 1
+report_segments_sec: [[10, 20]]

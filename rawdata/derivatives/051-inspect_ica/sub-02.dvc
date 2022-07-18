@@ -1,0 +1,5 @@
+outs:
+- md5: 73dd7bca05f431336bbeda76f0e7509b.dir
+  size: 17
+  nfiles: 1
+  path: sub-02

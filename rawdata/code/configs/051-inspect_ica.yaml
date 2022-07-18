@@ -1,0 +1,19 @@
+defaults:
+  - schema
+  - paths@paths
+  - hydra
+  - _self_
+  - subject: test
+
+deriv_paths: ${paths.051-inspect_ica}
+
+input:
+  raw: ${paths.021-apply_maxfilter.maxfilt_raw}
+  ica: ${paths.041-compute_ica.solution}
+  annots: ${paths.031-annotate_postmaxfilt.annots}
+output:
+  bad_ics: ${deriv_paths.bad_ics}
+
+filt:
+  l_freq: 1
+  h_freq: null

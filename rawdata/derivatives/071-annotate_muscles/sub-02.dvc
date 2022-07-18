@@ -1,0 +1,5 @@
+outs:
+- md5: 21e68ca51823c21a88adbcedd31c528a.dir
+  size: 29960
+  nfiles: 5
+  path: sub-02

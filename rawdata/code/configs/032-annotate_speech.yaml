@@ -1,0 +1,15 @@
+defaults:
+  - schema
+  - paths@paths
+  - hydra
+  - _self_
+  - subject: test
+
+deriv_paths: ${paths.032-annotate_speech}
+
+input:
+  raw: ${paths.021-apply_maxfilter.maxfilt_raw}
+output:
+  annots: ${deriv_paths.annots}
+
+mode: EDIT

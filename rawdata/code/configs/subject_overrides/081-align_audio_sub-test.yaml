@@ -1,0 +1,3 @@
+# @package _global_
+
+report_segments_sec: [[10, 20], [28, 32]]

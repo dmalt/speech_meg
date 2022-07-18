@@ -1,0 +1,19 @@
+defaults:
+  - schema
+  - paths@paths
+  - hydra
+  - _self_
+  - subject: test
+
+deriv_paths: ${paths.021-apply_maxfilter}
+
+input:
+  raw: ${paths.root_data.raw}
+  ct: ${paths.root_data.ct}
+  cal: ${paths.root_data.cal}
+  bad_ch: ${paths.011-annotate_premaxfilt.bad_ch}
+  annots: ${paths.011-annotate_premaxfilt.annots}
+output:
+  maxfilt_raw: ${deriv_paths.maxfilt_raw}
+
+t_window: auto

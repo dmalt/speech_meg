@@ -1,0 +1,15 @@
+defaults:
+  - schema
+  - paths@paths
+  - hydra
+  - _self_
+  - subject: test
+
+deriv_paths: ${paths.091-resample}
+
+input:
+  raw: ${paths.061-apply_ica.raw}
+output:
+  raw: ${deriv_paths.raw}
+
+sfreq: 500

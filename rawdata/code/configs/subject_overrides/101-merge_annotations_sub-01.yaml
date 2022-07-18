@@ -1,0 +1,6 @@
+# @package _global_
+input:
+  annots_list:
+    - ${paths.031-annotate_postmaxfilt.annots}
+    - ${paths.032-annotate_speech.annots}
+    - ${paths.071-annotate_muscles.annots}

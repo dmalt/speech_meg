@@ -1,0 +1,17 @@
+defaults:
+  - schema
+  - paths@paths
+  - hydra
+  - _self_
+  - subject: test
+
+deriv_paths: ${paths.033-annotate_covert}
+
+input:
+  raw: ${paths.021-apply_maxfilter.maxfilt_raw}
+output:
+  annots: ${deriv_paths.annots}
+
+
+check: true
+decim: 20
