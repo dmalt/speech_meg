@@ -55,7 +55,7 @@ def main(cfg: Config):
     raw.plot(block=True)
 
     logger.info(f"Annotations: {annots}")
-    annots.save(cfg.output.annots, overwrite=True)
+    raw.annotations.save(cfg.output.annots, overwrite=True)
 
 
 if __name__ == "__main__":
