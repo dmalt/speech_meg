@@ -27,12 +27,16 @@ conda install -c conda-forge dvc dvc-gdrive
 dvc pull
 ```
 
-At this point DVC will ask for an authentification with a Google account.
+4) Complete the authentification step.
+
+At this point DVC will ask for an authentification with your Google account.
 Follow the link in the terminal. In the opened browser window select
 the Google account with which the data were shared and click on both checkboxes.
 If the data were shared with you, the download should start after the authentification.
 
-This will load
+5) Come back next morning :)
+
+In case of success, the following data will be loaded:
 - raw MEG and audio data @ `rawdata`,
 - data annotations @ `rawdata/derivatives/011-annotate_premaxfilt`, `rawdata/derivatives/031-annotate_postmaxfilt`, `rawdata/derivatives/032-annotate_speech` `rawdata/derivatives/033-annotate_covert`, `rawdata/derivatives/071-annotate_muscles`, `rawdata/derivatives/101-merge_annotations`
 - manually marked bad ICA components @ `rawdata/derivatives/051-inspect_ica`
