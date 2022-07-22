@@ -8,7 +8,12 @@ directly into a Python project.
 Quickstart
 ----------
 ### To only load the data
-1) Install DVC and DVC-gdrive:
+1) Clone this repo:
+```bash
+git clone https://github.com/dmalt/speech_meg.git
+```
+
+2) Install DVC and DVC-gdrive:
 - with pip:
 ```bash
 pip install dvc dvc[gdrive]
@@ -17,7 +22,7 @@ pip install dvc dvc[gdrive]
 ```bash
 conda install -c conda-forge dvc dvc-gdrive
 ```
-2) From the project root run
+3) From the project root run
 ```
 dvc pull
 ```
