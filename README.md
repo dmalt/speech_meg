@@ -28,4 +28,16 @@ dvc pull
 ```
 
 At this point DVC will ask for an authentification with a Google account.
+Follow the link in the terminal. In the opened browser window select
+the Google account with which the data were shared and click on both checkboxes.
 If the data were shared with you, the download should start after the authentification.
+
+This will load
+- raw MEG and audio data @ `rawdata`,
+- data annotations @ `rawdata/derivatives/011-annotate_premaxfilt`, `rawdata/derivatives/031-annotate_postmaxfilt`, `rawdata/derivatives/032-annotate_speech` `rawdata/derivatives/033-annotate_covert`, `rawdata/derivatives/071-annotate_muscles`, `rawdata/derivatives/101-merge_annotations`
+- manually marked bad ICA components @ `rawdata/derivatives/051-inspect_ica`
+- aligned audio data @ `rawdata/derivatives/081-align_audio`
+- downsampled and ICA-cleaned MEG data @ `rawdata/derivatives/091-resample`
+
+All the intermediate files will not be downloaded since they can be recomputed via
+running the corresponding scripts from `rawdata/code/preproc`
