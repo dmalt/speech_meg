@@ -1,25 +1,26 @@
-This package manages dependencies for speech decoding from MEG data.
-It contains conda environment setup and tools for data preprocessing with MNE-Python, mostly
-different paths to temporary files.
+DVC repository for MEG overt/covert speech dataset.
 
-Speech decoding project uses pytorch for deep learning models definition, and it can be run
-both on CPU and GPU. But the required environment for these two cases is slightly different.
+It contains conda environment setup and scripts for data preprocessing with MNE-Python,
+DVC configuration to download the data from GDrive and Python API to load the data
+directly into a Python project.
 
-Installation
-------------
 
-### CPU
-- Install [conda](https://docs.conda.io/en/latest/)
-- Create new conda environment from yaml:
+Quickstart
+----------
+### To only load the data
+1) Install DVC and DVC-gdrive:
+- with pip:
 ```bash
-conda env create -f environment_freeze.yml
+pip install dvc dvc[gdrive]
 ```
-- Activate the environment with
+- with conda:
+```bash
+conda install -c conda-forge dvc dvc-gdrive
 ```
-conda activate speech3.9
+2) From the project root run
+```
+dvc pull
 ```
 
-- Optionally, install tool from this package:
-```bash
-pip install -e .
-```
+At this point DVC will ask for an authentification with a Google account.
+If the data were shared with you, the download should start after the authentification.
