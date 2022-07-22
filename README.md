@@ -36,9 +36,14 @@ If the data were shared with you, the download should start after the authentifi
 
 5) Come back next morning :)
 
-In case of success, the following data will be loaded:
+In case of success, the following data will be loaded (18 GB in total):
 - raw MEG and audio data @ `rawdata`,
-- data annotations @ `rawdata/derivatives/011-annotate_premaxfilt`, `rawdata/derivatives/031-annotate_postmaxfilt`, `rawdata/derivatives/032-annotate_speech` `rawdata/derivatives/033-annotate_covert`, `rawdata/derivatives/071-annotate_muscles`, `rawdata/derivatives/101-merge_annotations`
+- data annotations @ `rawdata/derivatives/011-annotate_premaxfilt`,
+  `rawdata/derivatives/031-annotate_postmaxfilt`,
+  `rawdata/derivatives/032-annotate_speech`
+  `rawdata/derivatives/033-annotate_covert`,
+  `rawdata/derivatives/071-annotate_muscles`,
+  `rawdata/derivatives/101-merge_annotations`
 - manually marked bad ICA components @ `rawdata/derivatives/051-inspect_ica`
 - aligned audio data @ `rawdata/derivatives/081-align_audio`
 - downsampled and ICA-cleaned MEG data @ `rawdata/derivatives/091-resample`
