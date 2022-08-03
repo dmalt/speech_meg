@@ -5,3 +5,5 @@
     type = "hardlink,symlink"
 ['remote "gdrive_remote"']
     url = gdrive://1ZGbeFsXyb8NDOQICV2Ul6Eut0KMP0LMJ
+['remote "test"']
+    url = gdrive://1sXWfgNqQRHwgCv2Ka22v8A7Pkhm36RGM
