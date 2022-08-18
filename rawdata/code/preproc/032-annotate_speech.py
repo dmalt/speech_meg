@@ -10,6 +10,7 @@ from hydra.core.config_store import ConfigStore
 from mne import find_events  # type: ignore
 from mne.annotations import read_annotations  # type: ignore
 from mne.io.fiff.raw import read_raw_fif  # type: ignore
+
 from utils import AnnotMode, BaseConfig, prepare_script
 
 matplotlib.use("TkAgg")
@@ -38,7 +39,7 @@ cs.store(name="schema", node=Config)
 
 
 @hydra.main(config_path="../configs/", config_name="032-annotate_speech")
-def main(cfg: Config):
+def main(cfg: Config) -> None:
     prepare_script(logger, script_name=__file__)
 
     logger.info("Preparing raw data")
