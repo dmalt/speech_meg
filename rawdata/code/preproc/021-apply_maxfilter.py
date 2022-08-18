@@ -13,7 +13,7 @@ for emptyroom data
 import logging
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Union
+from typing import Any
 
 import hydra
 from hydra.core.config_store import ConfigStore
@@ -21,6 +21,7 @@ from mne.channels import fix_mag_coil_types  # type: ignore
 from mne.chpi import filter_chpi  # type: ignore
 from mne.io.fiff.raw import read_raw_fif  # type: ignore
 from mne.preprocessing import maxwell_filter  # type: ignore
+
 from utils import BaseConfig, prepare_script, read_bad_channels
 
 logger = logging.getLogger(__file__)
