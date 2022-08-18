@@ -10,6 +10,7 @@ import matplotlib  # type: ignore
 from hydra.core.config_store import ConfigStore
 from mne.annotations import read_annotations  # type: ignore
 from mne.io.fiff.raw import read_raw_fif  # type: ignore
+
 from utils import BaseConfig, prepare_script, read_bad_channels, write_bad_channels
 
 matplotlib.use("TkAgg")
@@ -41,7 +42,7 @@ cs.store(name="schema", node=Config)
 
 
 @hydra.main(config_path="../configs/", config_name="011-annotate_premaxfilt")
-def main(cfg: Config):
+def main(cfg: Config) -> None:
     prepare_script(logger, script_name=__file__)
     raw = read_raw_fif(cfg.input.raw)
     if Path(cfg.output.bad_ch).exists():
