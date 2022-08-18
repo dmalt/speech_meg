@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 import mne  # type: ignore
+from hydra.utils import get_original_cwd
 
 
 class AnnotMode(Enum):
@@ -68,7 +69,7 @@ def update_annotations(raw: mne.io.Raw, annotations: mne.Annotations, overwrite=
 
 
 def is_repo_clean() -> bool:
-    return not os.popen("git status --porcelain").read()
+    return not os.popen(f"git status --porcelain {get_original_cwd()}").read()
 
 
 def get_latest_commit_hash() -> str:
