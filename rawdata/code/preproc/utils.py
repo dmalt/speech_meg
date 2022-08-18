@@ -49,7 +49,9 @@ def write_ica_bads(ica_bads_path: str, ica: mne.preprocessing.ICA) -> None:
     write_bad_channels(ica_bads_path, [str(ic) for ic in ica.exclude])
 
 
-def update_annotations(raw: mne.io.Raw, annotations: mne.Annotations, overwrite=False) -> None:
+def update_annotations(
+    raw: mne.io.Raw, annotations: mne.Annotations, overwrite: bool = False
+) -> None:
     """
     Set new annotations first and then add existing
 
