@@ -1,3 +1,6 @@
 hydra:
   run:
     dir: ${deriv_paths.subj_dir}
+  sweep:
+    dir: ${deriv_paths.dir}
+    subdir: sub-${subj_id}
