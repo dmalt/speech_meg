@@ -10,6 +10,7 @@ import hydra
 import mne  # type: ignore
 from hydra.core.config_store import ConfigStore
 from mne.preprocessing import ICA  # type: ignore
+
 from utils import BaseConfig
 
 logger = logging.getLogger(__name__)
@@ -73,7 +74,7 @@ def compute_ica(raw: mne.io.Raw, init_cfg: IcaInitParams, fit_cfg: IcaFitParams)
 
 
 @hydra.main(config_path="../configs/", config_name="041-compute_ica")
-def main(cfg: Config):
+def main(cfg: Config) -> None:
     logger.info(f"Starting new session for {__file__}")
     logger.info(f"Current working directory is {os.getcwd()}")
 
