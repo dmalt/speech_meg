@@ -7,7 +7,7 @@ Also, downsample wav audio (when loading) to the target frequency
 
 import logging
 from dataclasses import dataclass, field
-from typing import List
+from typing import List, Tuple
 
 import hydra
 import librosa as lb  # type: ignore
@@ -18,6 +18,7 @@ import scipy.signal  # type: ignore
 import soundfile as sf  # type: ignore
 from hydra.core.config_store import ConfigStore
 from librosa import display
+
 from utils import BaseConfig, prepare_script
 
 logger = logging.getLogger(__file__)
@@ -105,11 +106,11 @@ def align_audio(audio: np.ndarray, shift: int, target_duration: int) -> np.ndarr
     return audio[:target_duration]
 
 
-def read_meg_audio(raw_path: str, audio_ch):
+def read_meg_audio(raw_path: str, audio_ch: str) -> Tuple[np.ndarray, int]:
     raw = mne.io.read_raw_fif(raw_path, preload=True)
     audio_meg = np.squeeze(raw.get_data(picks=audio_ch, reject_by_annotation=None))
     sr_meg = raw.info["sfreq"]
-    return audio_meg, sr_meg
+    return audio_meg, int(sr_meg)
 
 
 def resample(nsamples: int, sr_from: float, sr_to: float) -> int:
@@ -117,7 +118,7 @@ def resample(nsamples: int, sr_from: float, sr_to: float) -> int:
 
 
 @hydra.main(config_path="../configs/", config_name="081-align_audio")
-def main(cfg: Config):
+def main(cfg: Config) -> None:
     prepare_script(logger, script_name=__file__)
 
     audio_meg, sr_meg = read_meg_audio(cfg.input.raw, cfg.audio_ch)
