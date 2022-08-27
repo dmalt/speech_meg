@@ -132,7 +132,9 @@ def main(cfg: Config) -> None:
     audio_env = retreive_audio_envelope(raw, cfg.audio_ch, cfg.dsamp_sfreq)
     ica = read_ica(cfg.input.ica)
     ica_env = retreive_ics_envelope(ica, raw, cfg.dsamp_sfreq, cfg.ica_muscle_band_filt)
+    logger.info("Computing mutual info.")
     mi = mutual_info_regression(ica_env.T, np.squeeze(audio_env))
+    logger.info("Done")
 
     fig_mi = gen_mi_scores_figure(ica, mi, np.nonzero(mi > cfg.mi_thresh)[0], len(ica_env))
     report.add_figure(fig_mi, title="Muscle - audio MI")
