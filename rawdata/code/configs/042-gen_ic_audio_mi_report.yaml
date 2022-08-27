@@ -16,10 +16,12 @@ output:
 
 
 ica_muscle_band_filt:
-  l_freq: 40
+  l_freq: 60
   h_freq: null
 
 mi_thresh: 0.1
 dsamp_sfreq: 250
 
 audio_ch: MISC008
+
+is_plot_envelopes: False
