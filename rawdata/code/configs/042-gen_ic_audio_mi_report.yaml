@@ -20,3 +20,5 @@ ica_muscle_band_filt:
 
 mi_thresh: 0.1
 dsamp_sfreq: 250
+
+audio_ch: MISC008
