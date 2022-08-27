@@ -49,7 +49,7 @@ cs.store(name="schema", node=Config)
 
 
 @hydra.main(config_path="../configs/", config_name="071-annotate_muscles")
-def main(cfg: Config):
+def main(cfg: Config) -> None:
     prepare_script(logger, script_name=__file__)
 
     raw = mne.io.read_raw_fif(cfg.input.raw, preload=True)
