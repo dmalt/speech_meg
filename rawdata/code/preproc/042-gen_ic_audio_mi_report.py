@@ -44,6 +44,7 @@ class Config(BaseConfig):
     ica_muscle_band_filt: IcaMuscleBandFilt
     mi_thresh: float
     dsamp_sfreq: float
+    is_plot_envelopes: bool
 
 
 cs = ConfigStore.instance()
@@ -122,11 +123,10 @@ def gen_crosscorrelation_fig(times: np.ndarray, corr: np.ndarray) -> Figure:
 
 def plot_envelopes(ica_env: np.ndarray, audio_env: np.ndarray, dsamp_sfreq: float) -> None:
     import matplotlib
-    from mne import create_info
-
     matplotlib.use("TkAgg")
+
     ch_names = [f"IC {i}" for i in range(len(ica_env))] + ["Audio"]
-    info = create_info(sfreq=dsamp_sfreq, ch_names=ch_names)
+    info = mne.create_info(sfreq=dsamp_sfreq, ch_names=ch_names)
     data = np.concatenate([ica_env, audio_env[np.newaxis, :]], axis=0)
     raw = mne.io.RawArray(data, info)
     raw.plot(block=True)
@@ -156,14 +156,16 @@ def main(cfg: Config) -> None:
     report.add_figure(fig_mi, title="Muscle - audio MI")
 
     for i_comp in trange(len(ica_env), desc="Computing cross-correlation"):
-        times, corr = compute_crosscorr(ica_env[i_comp, :], audio_env, cfg.dsamp_sfreq)
-        corr_fig = gen_crosscorrelation_fig(times, corr)
         topo_fig = ica.plot_components(picks=i_comp, show=False)
         report.add_figure(topo_fig, title=f"ICA {i_comp} topo")
+
+        times, corr = compute_crosscorr(ica_env[i_comp, :], audio_env, cfg.dsamp_sfreq)
+        corr_fig = gen_crosscorrelation_fig(times, corr)
         report.add_figure(corr_fig, title=f"ICA {i_comp} - audio cross-correlation")
 
     report.save(cfg.output.report, overwrite=True)
-    plot_envelopes(ica_env, audio_env, cfg.dsamp_sfreq)
+    if cfg.is_plot_envelopes:
+        plot_envelopes(ica_env, audio_env, cfg.dsamp_sfreq)
 
 
 if __name__ == "__main__":
