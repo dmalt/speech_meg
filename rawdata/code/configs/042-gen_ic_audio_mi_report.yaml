@@ -1,0 +1,22 @@
+defaults:
+  - schema
+  - paths@paths
+  - hydra
+  - _self_
+  - subject: test
+
+deriv_paths: ${paths.042-gen_ic_audio_mi_report}
+
+input:
+  raw: ${paths.021-apply_maxfilter.maxfilt_raw}
+  ica: ${paths.031-annotate_postmaxfilt.annots}
+output:
+  report: ${deriv_paths.report}
+
+
+ica_muscle_band_filt:
+  l_freq: 40
+  h_freq: null
+
+mi_thresh: 0.1
+dsamp_sfreq: 250

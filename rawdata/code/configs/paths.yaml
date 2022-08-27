@@ -55,6 +55,12 @@ root_data:
   solution: ${.subj_dir}/${.base}_ica.fif
   report: ${.subj_dir}/${.base}_ica.html
 
+042-gen_ic_audio_mi_report:
+  dir: ${..derivatives}/042-gen_ic_audio_mi_report
+  subj_dir: ${.dir}/${..bids_subject}
+  base: ${..021-apply_maxfilter.base}
+  report: ${.subj_dir}/${.base}_ica.html
+
 051-inspect_ica:
   dir: ${..derivatives}/051-inspect_ica
   subj_dir: ${.dir}/${..bids_subject}
