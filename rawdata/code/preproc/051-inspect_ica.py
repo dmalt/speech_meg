@@ -44,7 +44,7 @@ cs.store(name="schema", node=Config)
 
 
 @hydra.main(config_path="../configs/", config_name="051-inspect_ica")
-def main(cfg: Config):
+def main(cfg: Config) -> None:
     prepare_script(logger, script_name=__file__)
 
     logger.info("Loading and filtering raw data")
