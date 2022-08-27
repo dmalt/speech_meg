@@ -13,7 +13,7 @@ from mne.io import Raw, RawArray, read_raw_fif  # type: ignore
 from mne.preprocessing import ICA  # type: ignore
 from mne.preprocessing import read_ica  # type: ignore
 from sklearn.feature_selection import mutual_info_regression  # type: ignore
-from tqdm import tqdm  # type: ignore
+from tqdm import tqdm, trange  # type: ignore
 from utils import BaseConfig, prepare_script
 
 logger = logging.getLogger(__file__)
@@ -111,7 +111,7 @@ def gen_mi_scores_figure(ica: ICA, mi: np.ndarray, bad_mi_inds: np.ndarray, n_co
     return fig_mi
 
 
-def gen_corr_fig(times: np.ndarray, corr: np.ndarray) -> Figure:
+def gen_crosscorrelation_fig(times: np.ndarray, corr: np.ndarray) -> Figure:
     corr_fig, ax = plt.subplots()
     ax.plot(times, corr)
     ax.set_xlabel("Time, seconds")
@@ -137,9 +137,9 @@ def main(cfg: Config) -> None:
     fig_mi = gen_mi_scores_figure(ica, mi, np.nonzero(mi > cfg.mi_thresh)[0], len(ica_env))
     report.add_figure(fig_mi, title="Muscle - audio MI")
 
-    for i_comp in range(len(ica_env)):
+    for i_comp in trange(len(ica_env), desc="Computing cross-correlation"):
         times, corr = compute_crosscorr(ica_env[i_comp, :], audio_env, cfg.dsamp_sfreq)
-        corr_fig = gen_corr_fig(times, corr)
+        corr_fig = gen_crosscorrelation_fig(times, corr)
         topo_fig = ica.plot_components(picks=i_comp, show=False)
         report.add_figure(topo_fig, title=f"ICA {i_comp} topo")
         report.add_figure(corr_fig, title=f"ICA {i_comp} - audio cross-correlation")
